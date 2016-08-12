@@ -1,0 +1,87 @@
+1.首先要判断需要克隆的对象是什么类型;
+
+function type(obj){
+
+  return {}.toString.call(obj,null).slice(8,-1).toLowerCase();
+
+}
+
+2.根据传入的参数类型来决定返回值的参数类型,若不为object,array类型,直接return传进来的参数值;
+
+var result;​
+
+switch(type(obj)) {
+
+  case "object":
+
+    result = {};
+
+    break;
+
+  case "array":
+
+    result = [];
+
+    break;
+
+  default:
+
+    return obj;​​
+
+}​
+
+3.实现深度克隆:
+
+function clone(obj){
+
+  //根据obj的数据类型(type(obj)的返回值),
+
+  //若不为object,array类型,直接return传进来的参数值;
+
+  var result;
+
+  switch(type(obj)) {
+
+    case "object":
+
+      result = {};
+
+      break;
+
+    case "array":
+
+      result = [];
+
+      break;
+
+    default:
+
+      return obj;
+
+  }
+
+//将obj中的每一项都复制到reslut中;
+
+  for(var key in obj){
+
+//若obj[key]是复杂类型数据,则再次调用clone()来实现复制;
+
+//若obj[key]不是复杂类型数据,则直接复制;
+
+//递归的思想;;;
+
+     result[key]=type(obj[key])==="array"||type(obj[key])==="object"?clone(obj[key]):obj[key];
+
+  }
+
+  return result;
+
+//用于判断obj数据类型的函数;
+
+  function type(obj){
+
+   return {}.toString.call(obj,null).slice(8,-1).toLowerCase();
+
+  }
+
+}
